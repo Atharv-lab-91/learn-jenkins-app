@@ -19,9 +19,15 @@ pipeline{
             }
         }
         stage('Test'){
+            agent{
+                docker{
+                    image 'node:18-alpine'
+                }
+            }
             steps{
                 sh 'echo "Hi from test stage"'
                 sh 'test -f build/index.html'
+                sh 'npm test'
             }
         }
     }
